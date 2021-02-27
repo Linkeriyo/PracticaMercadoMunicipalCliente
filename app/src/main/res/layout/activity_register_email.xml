@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroundregister"
+    tools:context=".RegisterEmailActivity">
+
+    <TextView
+        android:id="@+id/textViewCancel"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/round_button_register_create"
+        android:padding="20dp"
+        android:text="Atras"
+        android:textAlignment="center"
+        android:textColor="#B0FFFFFF"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextEmailAddressRegister"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/round_button_register_activity"
+        android:ems="10"
+        android:hint="CORREO"
+        android:inputType="textEmailAddress"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/textViewImagen"
+        app:layout_constraintStart_toStartOf="@+id/textViewCreatete"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCreatete" />
+
+    <EditText
+        android:id="@+id/editTextPasswordRegister"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/round_button_register_activity"
+        android:ems="10"
+        android:hint="CONTRASEÑA"
+        android:inputType="textPassword"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/editTextEmailAddressRegister"
+        app:layout_constraintStart_toStartOf="@+id/editTextEmailAddressRegister"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEmailAddressRegister" />
+
+    <TextView
+        android:id="@+id/textViewCreatete"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="150dp"
+        android:background="#AB120E0E"
+        android:text="Crear usuario"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewNext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewNext"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/round_button_register_create"
+        android:padding="20dp"
+        android:text="Siguiente"
+        android:textAlignment="center"
+        android:textColor="#B0FFFFFF"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

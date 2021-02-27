@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroundregister"
+    tools:context=".RegisterDataActivity">
+
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/new_store_image_imageview2"
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/ic_baseline_person_add_24"
+        app:civ_border="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextBalanceRegister"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/round_button_register_activity"
+        android:ems="10"
+        android:hint="SALDO"
+        android:inputType="number"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/editTextNameRegister"
+        app:layout_constraintStart_toStartOf="@+id/editTextNameRegister"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNameRegister" />
+
+    <EditText
+        android:id="@+id/editTextNameRegister"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/round_button_register_activity"
+        android:ems="10"
+        android:hint="NOMBRE"
+        android:inputType="textPersonName"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/textViewImagen"
+        app:layout_constraintStart_toStartOf="@+id/textViewImagen"
+        app:layout_constraintTop_toBottomOf="@+id/textViewImagen" />
+
+    <TextView
+        android:id="@+id/textViewImagen"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:background="#AB120E0E"
+        android:text="Añadir imagen"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/new_store_image_imageview2"
+        app:layout_constraintStart_toStartOf="@+id/new_store_image_imageview2"
+        app:layout_constraintTop_toBottomOf="@+id/new_store_image_imageview2" />
+
+    <TextView
+        android:id="@+id/textViewCreate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/round_button_register_create"
+        android:padding="20dp"
+        android:text="Crear usuario"
+        android:textColor="#B0FFFFFF"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

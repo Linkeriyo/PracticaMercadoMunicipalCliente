@@ -1,0 +1,85 @@
+{
+  "project_info": {
+    "project_number": "1090703845537",
+    "firebase_url": "https://practicamercadomunicipal-default-rtdb.firebaseio.com",
+    "project_id": "practicamercadomunicipal",
+    "storage_bucket": "practicamercadomunicipal.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1090703845537:android:eeb4f83f06761b4ba9e8e0",
+        "android_client_info": {
+          "package_name": "com.example.mercadomunicipalcliente"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1090703845537-i4bke4e8n9rpbbjh5v0pdtpti87fbdh1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mercadomunicipalcliente",
+            "certificate_hash": "dd6ce2ac3d31a9fc32d75780570773168f10ccec"
+          }
+        },
+        {
+          "client_id": "1090703845537-j9fvsll6ide40er6ql21jvmej3ios00k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4gGz8wZQbQiGt1ZutPCfWLFduk0Oz1lw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1090703845537-j9fvsll6ide40er6ql21jvmej3ios00k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1090703845537:android:1f87525c3c3c9801a9e8e0",
+        "android_client_info": {
+          "package_name": "com.example.practicamercadomunicipal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1090703845537-5oitfe8cjfk42ob6ht5gs2bpbe5ti3v5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.practicamercadomunicipal",
+            "certificate_hash": "dd6ce2ac3d31a9fc32d75780570773168f10ccec"
+          }
+        },
+        {
+          "client_id": "1090703845537-j9fvsll6ide40er6ql21jvmej3ios00k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4gGz8wZQbQiGt1ZutPCfWLFduk0Oz1lw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1090703845537-j9fvsll6ide40er6ql21jvmej3ios00k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
