@@ -32,7 +32,7 @@ public class EditProductActivity extends AppCompatActivity {
     FirebaseDatabase database;
     FirebaseStorage storage;
     Toolbar toolbar;
-    TextView descTextView, idTextView, priceTextView;
+    TextView descTextView, idTextView, priceTextView, stockTextView;
     ImageView imageView;
     Uri imageUri, postImageUri;
     ProgressBar progressBar;
@@ -66,6 +66,7 @@ public class EditProductActivity extends AppCompatActivity {
 
     private void setupViews() {
         descTextView = findViewById(R.id.edit_product_desc_textview);
+        stockTextView = findViewById(R.id.edit_product_stock_textview);
         idTextView = findViewById(R.id.edit_product_id_textview);
         priceTextView = findViewById(R.id.edit_product_price_textview);
         imageView = findViewById(R.id.edit_product_image_imageview);
@@ -87,7 +88,8 @@ public class EditProductActivity extends AppCompatActivity {
                 String id = idTextView.getText().toString();
                 String desc = descTextView.getText().toString();
                 double price = Double.parseDouble(priceTextView.getText().toString());
-                Product product = new Product(storeID, id, desc, price, imageUri, postImageUri);
+                int stock = Integer.parseInt(stockTextView.getText().toString());
+                Product product = new Product(storeID, id, desc, price, imageUri, postImageUri, stock);
                 DatabaseReference productsReference = FirebaseDatabase.getInstance().getReference("products");
                 productsReference.child(idTextView.getText().toString()).setValue(product)
                         .addOnCompleteListener(task -> finish());
@@ -108,6 +110,7 @@ public class EditProductActivity extends AppCompatActivity {
         idTextView.setText(product.ID);
         descTextView.setText(product.desc);
         priceTextView.setText(String.valueOf(product.price));
+        stockTextView.setText(String.valueOf(product.stock));
         Glide.with(this).load(product.image).centerCrop().into(imageView);
     }
 

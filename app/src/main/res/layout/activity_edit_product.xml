@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".products.NewProductActivity">
 
+    <EditText
+        android:id="@+id/edit_product_stock_textview"
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Stock del producto"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="@+id/edit_product_price_textview"
+        app:layout_constraintStart_toStartOf="@+id/edit_product_price_textview"
+        app:layout_constraintTop_toBottomOf="@+id/edit_product_price_textview" />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/edit_product_toolbar"
         android:layout_width="match_parent"
