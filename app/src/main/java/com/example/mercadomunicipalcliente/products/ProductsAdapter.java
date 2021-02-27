@@ -113,6 +113,6 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
     private static String stockToString(int stock) {
         String stockString = String.valueOf(stock);
 
-        return stockString + " En stock";
+        return "Stock " + stockString;
     }
 }
