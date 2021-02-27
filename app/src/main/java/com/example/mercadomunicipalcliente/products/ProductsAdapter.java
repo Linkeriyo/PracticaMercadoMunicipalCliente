@@ -72,10 +72,6 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
                     .putExtra("storeID", store.ID)
             );
         });
-
-        holder.itemView.setOnClickListener(v -> {
-            context.startActivity(new Intent(context, ProductsActivity.class).putExtra("productNumber", position));
-        });
     }
 
     @Override
