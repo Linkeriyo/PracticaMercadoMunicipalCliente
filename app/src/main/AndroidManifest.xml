@@ -12,15 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MercadoMunicipalCliente">
         <activity android:name=".RegisterDataActivity" />
-        <activity android:name=".stores.NewStoreActivity" />
         <activity android:name=".RegisterEmailActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".stores.StoresActivity" />
-        <activity android:name=".stores.EditStoreActivity"/>
-        <activity android:name=".products.NewProductActivity"/>
-        <activity android:name=".products.EditProductActivity"/>
         <activity android:name=".products.ProductsActivity"/>
-        <activity android:name=".users.UsersActivity"/>
         <activity android:name=".SplashActivity"
             android:theme="@style/SplashScreenTheme">
             <intent-filter>
