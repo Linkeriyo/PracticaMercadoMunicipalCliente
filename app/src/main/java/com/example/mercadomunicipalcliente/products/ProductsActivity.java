@@ -1,7 +1,6 @@
 package com.example.mercadomunicipalcliente.products;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -47,12 +46,6 @@ public class ProductsActivity extends AppCompatActivity{
     private void setupToolBar() {
         toolbar = findViewById(R.id.products_toolbar);
         toolbar.setSubtitle(store.name);
-        toolbar.setOnMenuItemClickListener(item -> {
-            if (item.getItemId() == R.id.add_product_option) {
-                startActivity(new Intent(this, NewProductActivity.class));
-            }
-            return true;
-        });
         toolbar.setNavigationOnClickListener(v -> {
             finish();
         });
@@ -80,16 +73,14 @@ public class ProductsActivity extends AppCompatActivity{
     }
 
     private void setupDatabaseListener() {
-        DatabaseReference productsReference = FirebaseDatabase.getInstance().getReference("products");
+        DatabaseReference productsReference = FirebaseDatabase.getInstance()
+                .getReference("stores")
+                .child(store.ID)
+                .child("products");
         productsReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                List<Product> products = new ArrayList<>();
-                snapshot.getChildren().forEach(child -> {
-                      products.add(child.getValue(Product.class));
-                });
-                productList.clear();
-                productList.addAll(products);
+                setupProductList();
                 recyclerView.getAdapter().notifyDataSetChanged();
             }
 

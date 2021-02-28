@@ -17,8 +17,12 @@ public class Product {
         this.ID = ID;
         this.desc = desc;
         this.price = price;
-        this.image = image.toString();
-        this.imgStorage = imgStorage.toString();
+        if (image != null) {
+            this.image = image.toString();
+        }
+        if (imgStorage != null) {
+            this.imgStorage = imgStorage.toString();
+        }
         this.stock = stock;
         this.kgUnit = kgUnit;
     }
