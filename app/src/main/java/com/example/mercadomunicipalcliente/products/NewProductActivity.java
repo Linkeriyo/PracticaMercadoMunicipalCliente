@@ -7,6 +7,7 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ public class NewProductActivity extends AppCompatActivity {
     Toolbar toolbar;
     TextView descTextView, idTextView, priceTextView, stockTextView;
     ImageView imageView;
+    Switch kgSwitch;
     Uri imageUri, postImageUri;
     ProgressBar progressBar;
     String storeID;
@@ -63,6 +65,7 @@ public class NewProductActivity extends AppCompatActivity {
             startActivityForResult(galleryIntent, PICK_IMAGE);
         });
         progressBar = findViewById(R.id.new_product_progressbar);
+        kgSwitch = findViewById(R.id.new_product_switch);
     }
 
     private void setupToolbar() {
@@ -76,8 +79,9 @@ public class NewProductActivity extends AppCompatActivity {
                 String id = idTextView.getText().toString();
                 String desc = descTextView.getText().toString();
                 double price = Double.parseDouble(priceTextView.getText().toString());
-                int stock = Integer.parseInt(stockTextView.getText().toString());
-                Product product = new Product(storeID, id, desc, price, imageUri, postImageUri, stock);
+                double stock = Double.parseDouble(stockTextView.getText().toString());
+                boolean kgUnit = kgSwitch.isChecked();
+                Product product = new Product(storeID, id, desc, price, imageUri, postImageUri, stock, kgUnit);
                 DatabaseReference productsReference = FirebaseDatabase.getInstance().getReference("products");
                 productsReference.child(idTextView.getText().toString()).setValue(product)
                         .addOnCompleteListener(task -> finish());

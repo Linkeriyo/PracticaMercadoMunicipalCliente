@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -53,18 +54,24 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
         holder.productStockTextView.setText(stockToString(product.stock));
 
         holder.deleteProductButton.setOnClickListener(v -> {
-            //Borrar la imagen de firebase.
-            Uri storageUri = Uri.parse(productList.get(position).imgStorage);
-            StorageReference imagesReference = FirebaseStorage.getInstance().getReference("images");
-            imagesReference.child(storageUri.getLastPathSegment()).delete();
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage("¿Seguro que quieres eliminar el producto? Los datos no se podrán recuperar.")
+                    .setPositiveButton("Sí", (dialog, which) -> {
+                        //Borrar la imagen de firebase.
+                        Uri storageUri = Uri.parse(productList.get(position).imgStorage);
+                        StorageReference imagesReference = FirebaseStorage.getInstance().getReference("images");
+                        imagesReference.child(storageUri.getLastPathSegment()).delete();
 
-            //Borrar el local de la base de datos.
-            DatabaseReference productsReference = FirebaseDatabase.getInstance().getReference("products");
-            productsReference.child(productList.get(position).ID).removeValue().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    notifyDataSetChanged();
-                }
-            });
+                        //Borrar el local de la base de datos.
+                        DatabaseReference productsReference = FirebaseDatabase.getInstance().getReference("products");
+                        productsReference.child(productList.get(position).ID).removeValue().addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                notifyDataSetChanged();
+                            }
+                        });
+                    })
+                    .setNegativeButton("No", (dialog, which) -> {});
+            builder.create().show();
         });
 
         holder.editProductButton.setOnClickListener(v -> {
@@ -110,9 +117,19 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
         return priceString + "€";
     }
 
-    private static String stockToString(int stock) {
+    private static String stockToString(double stock) {
         String stockString = String.valueOf(stock);
+        if (stockString.endsWith(".0")) {
+            stockString = stockString.substring(0, stockString.length() - 2);
+        }
+        return stockString + "uds";
+    }
 
-        return "Stock " + stockString;
+    private static String weightToString(double weight) {
+        String weightString = String.valueOf(weight);
+        if (weightString.endsWith(".0")) {
+            weightString = weightString.substring(0, weightString.length() - 2);
+        }
+        return weightString + "kg";
     }
 }

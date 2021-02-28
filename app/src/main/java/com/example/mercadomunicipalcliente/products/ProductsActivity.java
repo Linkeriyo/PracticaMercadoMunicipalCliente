@@ -36,6 +36,7 @@ public class ProductsActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products);
         store = AppData.storeList.get(getIntent().getIntExtra("storeNumber", 0));
+        System.out.println(store.name);
         setupProductList();
         setupRecyclerView();
         setupToolBar();
