@@ -15,8 +15,9 @@
         <activity android:name=".RegisterEmailActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".stores.StoresActivity" />
-        <activity android:name=".products.ProductsActivity"/>
-        <activity android:name=".SplashActivity"
+        <activity android:name=".products.ProductsActivity" />
+        <activity
+            android:name=".SplashActivity"
             android:theme="@style/SplashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
