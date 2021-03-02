@@ -12,8 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mercadomunicipalcliente.R;
 import com.example.mercadomunicipalcliente.data.AppData;
+import com.example.mercadomunicipalcliente.models.Invoice;
 import com.example.mercadomunicipalcliente.models.Product;
 import com.example.mercadomunicipalcliente.models.Store;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,23 +25,53 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductsActivity extends AppCompatActivity{
+public class ProductsActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     Toolbar toolbar;
     List<Product> productList;
     Store store;
-
+    FirebaseAuth auth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        auth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_products);
-        store = AppData.storeList.get(getIntent().getIntExtra("storeNumber", 0));
-        System.out.println(store.name);
-        setupProductList();
-        setupRecyclerView();
-        setupToolBar();
-        setupDatabaseListener();
+        if (AppData.invoiceList == null) {
+            loadInvoicesIfNull();
+        } else {
+            store = AppData.storeList.get(getIntent().getIntExtra("storeNumber", 0));
+            System.out.println(store.name);
+            setupProductList();
+            setupRecyclerView();
+            setupToolBar();
+            setupDatabaseListener();
+        }
+
+    }
+
+    private void loadInvoicesIfNull() {
+        DatabaseReference invoicesReference = FirebaseDatabase.getInstance().getReference("users").child(auth.getUid()).child("invoices");
+        invoicesReference.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                List<Invoice> invoices = new ArrayList<>();
+                task.getResult().getChildren().forEach(child -> {
+                    invoices.add(child.getValue(Invoice.class));
+                });
+                AppData.invoiceList = invoices;
+            } else {
+                AppData.invoiceList = new ArrayList<>();
+            }
+            if (AppData.invoiceList.isEmpty() || AppData.activeInvoice == null) {
+                AppData.createActiveInvoice();
+            }
+            store = AppData.storeList.get(getIntent().getIntExtra("storeNumber", 0));
+            System.out.println(store.name);
+            setupProductList();
+            setupRecyclerView();
+            setupToolBar();
+            setupDatabaseListener();
+        });
     }
 
     @SuppressLint("NonConstantResourceId")

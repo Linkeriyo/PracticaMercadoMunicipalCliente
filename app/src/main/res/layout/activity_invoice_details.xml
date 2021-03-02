@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".products.ProductsActivity">
+
+    <TextView
+        android:id="@+id/no_invoice_details_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="La factura está vacía."
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/invoice_details_recyclerview"
+        app:layout_constraintEnd_toEndOf="@+id/invoice_details_recyclerview"
+        app:layout_constraintStart_toStartOf="@+id/invoice_details_recyclerview"
+        app:layout_constraintTop_toTopOf="@+id/invoice_details_recyclerview" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/invoice_details_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider2">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/invoice_details_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/colorBackground"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/invoice_details_menu"
+        app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
+        app:subtitle="InvoiceNumber"
+        app:title="Factura" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintTop_toBottomOf="@+id/invoice_details_toolbar"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Total: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <Button
+        android:id="@+id/pay_invoice_button"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="?attr/colorOnPrimary"
+        android:foreground="?attr/selectableItemBackground"
+        android:text="Pagar"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@id/divider2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view" />
+
+    <Button
+        android:id="@+id/delay_invoice_button"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="@android:color/darker_gray"
+        android:foreground="?attr/selectableItemBackground"
+        android:text="Aplazar"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@id/divider2"
+        app:layout_constraintEnd_toStartOf="@+id/divider3"
+        app:layout_constraintTop_toBottomOf="@id/view"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toTopOf="@+id/invoice_details_recyclerview"
+        app:layout_constraintEnd_toStartOf="@+id/pay_invoice_button"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <View
+        android:id="@+id/divider4"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toTopOf="@+id/invoice_details_recyclerview"
+        app:layout_constraintEnd_toStartOf="@+id/delay_invoice_button"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+</androidx.constraintlayout.widget.ConstraintLayout>

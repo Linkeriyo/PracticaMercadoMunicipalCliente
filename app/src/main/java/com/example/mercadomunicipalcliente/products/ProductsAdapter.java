@@ -14,15 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.mercadomunicipalcliente.R;
 import com.example.mercadomunicipalcliente.data.AppData;
-import com.example.mercadomunicipalcliente.models.Invoice;
-import com.example.mercadomunicipalcliente.models.InvoiceLine;
 import com.example.mercadomunicipalcliente.models.Product;
 import com.example.mercadomunicipalcliente.models.Store;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductViewHolder> {
@@ -51,25 +46,13 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
         holder.productNameTextView.setText(product.desc);
         holder.productIdTextView.setText(product.ID);
         holder.productPriceTextView.setText(priceToString(product.price));
+        if (AppData.activeInvoice != null) {
+            holder.productCantEditText.setText("Cant. " + AppData.activeInvoice.getCurrentQuantityOf(product));
+        }
 
-        holder.productAddImagenView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (AppData.getUserById(user.getUid()).invoices == null) {
-                    InvoiceLine line = new InvoiceLine(store.ID, product.ID, Double.parseDouble(holder.productCantEditText.getText().toString()));
-                    ArrayList<InvoiceLine> lines = new ArrayList<InvoiceLine>();
-                    lines.add(line);
-                    ArrayList<InvoiceLine> invoices = new ArrayList<InvoiceLine>();
-                    for (int i= 0; i < lines.size();i++) {
-                        //lines.get(i).quantity
-                    }
-                    //Invoice invoice = new Invoice(1, lines, 0, );
-                    //invoice.add(lines);
-                   //AppData.getUserById(user.getUid()).invoices.add(invoice);
-                }
-
-            }
+        holder.productAddImagenView.setOnClickListener(v -> {
+            AppData.activeInvoice.addProduct(product);
+            holder.productCantEditText.setText("Cant. " + AppData.activeInvoice.getCurrentQuantityOf(product));
         });
     }
 

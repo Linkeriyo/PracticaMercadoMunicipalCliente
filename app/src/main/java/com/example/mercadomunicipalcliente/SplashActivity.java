@@ -67,6 +67,7 @@ public class SplashActivity extends AppCompatActivity {
                     }
                 });
                 AppData.userList = users;
+
                 usersLoaded = true;
                 tryNextActivity();
                 usersReference.removeEventListener(this);

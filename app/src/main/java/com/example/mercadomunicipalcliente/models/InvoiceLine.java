@@ -10,4 +10,8 @@ public class InvoiceLine {
         this.productID = productID;
         this.quantity = quantity;
     }
+
+    public InvoiceLine() {
+
+    }
 }

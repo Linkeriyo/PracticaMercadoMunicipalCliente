@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mercadomunicipalcliente.LoginActivity;
 import com.example.mercadomunicipalcliente.R;
 import com.example.mercadomunicipalcliente.data.AppData;
+import com.example.mercadomunicipalcliente.invoices.InvoicesActivity;
 import com.example.mercadomunicipalcliente.models.Store;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -39,13 +40,17 @@ public class StoresActivity extends AppCompatActivity {
         setupDatabaseListener();
     }
 
-    @SuppressLint("NonConstantResourceId")
     private void setupToolBar() {
         toolbar = findViewById(R.id.stores_toolbar);
-        toolbar.setNavigationOnClickListener(v -> {
-            FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(this, LoginActivity.class));
-            finish();
+        toolbar.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.sign_out_option) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(this, LoginActivity.class));
+                finish();
+            } else if (item.getItemId() == R.id.stores_invoices_option) {
+                startActivity(new Intent(this, InvoicesActivity.class));
+            }
+            return true;
         });
     }
 

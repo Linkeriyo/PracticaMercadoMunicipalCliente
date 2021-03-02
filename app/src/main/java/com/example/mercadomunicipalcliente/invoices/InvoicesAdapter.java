@@ -1,7 +1,9 @@
 package com.example.mercadomunicipalcliente.invoices;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,18 +20,18 @@ import com.example.mercadomunicipalcliente.models.Invoice;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesAdapter.InvoiceViewHolder> {
 
     private final List<Invoice> invoiceList;
     private final Context context;
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+    private final SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
 
     public InvoicesAdapter(List<Invoice> invoiceList, Context context) {
-        this.invoiceList = invoiceList;
+        this.invoiceList = new ArrayList<>(invoiceList);
         this.context = context;
     }
 
@@ -43,21 +45,27 @@ public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesAdapter.Invoic
     @Override
     public void onBindViewHolder(@NonNull InvoiceViewHolder holder, int position) {
         Invoice invoice = invoiceList.get(position);
-        holder.invoiceIDTextView.setText(invoice.number);
-        try {
-            holder.invoiceDateTextView.setText((CharSequence) sdf.parse(String.valueOf(invoice.date)));
-        } catch (ParseException e) {
-            e.printStackTrace();
+        holder.invoiceIDTextView.setText("nº: " + invoice.number);
+        holder.invoiceDateTextView.setText(sdf.format(invoice.date));
+        if (invoice.lines == null) {
+            invoice.lines = new ArrayList<>();
         }
-        holder.invoiceTotalTextView.setText(priceToString(invoice.total));
-        //Lo de abajo es poner el correo
-        holder.invoiceEmailTextView.setText(invoice.uid);
+        holder.invoiceLinesTextView.setText("Artículos: " + invoice.lines.size());
+        holder.invoiceTotalTextView.setText("Total: " + priceToString(invoice.total));
         if (invoice.paid) {
-            holder.invoicePagadoTextView.setText("Esta pagado");
+            holder.invoicePagadoTextView.setText("Pagado");
             holder.invoicePagadoTextView.setTextColor(Color.GREEN);
         } else {
             holder.invoicePagadoTextView.setText("No pagado");
             holder.invoicePagadoTextView.setTextColor(Color.RED);
+        }
+
+        if (invoice.equals(AppData.activeInvoice)) {
+            TypedValue typedValue = new TypedValue();
+
+            context.getTheme().resolveAttribute(R.attr.colorButtonNormal, typedValue, true);
+            holder.itemView.setBackgroundColor(typedValue.data);
+            holder.deleteInvoiceButton.setVisibility(View.INVISIBLE);
         }
 
         holder.deleteInvoiceButton.setOnClickListener(v -> {
@@ -73,8 +81,13 @@ public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesAdapter.Invoic
                             }
                         });
                     })
-                    .setNegativeButton("No", (dialog, which) -> {});
+                    .setNegativeButton("No", (dialog, which) -> {
+                    });
             builder.create().show();
+        });
+
+        holder.itemView.setOnClickListener(v -> {
+            context.startActivity(new Intent(context, InvoiceDetailsActivity.class).putExtra("invoiceNumber", invoice.number));
         });
     }
 
@@ -83,12 +96,12 @@ public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesAdapter.Invoic
         return invoiceList.size();
     }
 
-    public static class InvoiceViewHolder extends RecyclerView.ViewHolder{
+    public static class InvoiceViewHolder extends RecyclerView.ViewHolder {
 
         TextView invoiceIDTextView;
         TextView invoiceTotalTextView;
-        TextView invoiceEmailTextView;
         TextView invoiceDateTextView;
+        TextView invoiceLinesTextView;
         TextView invoicePagadoTextView;
         ImageButton deleteInvoiceButton;
 
@@ -96,10 +109,10 @@ public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesAdapter.Invoic
             super(itemView);
             invoiceIDTextView = itemView.findViewById(R.id.invoice_id_textview);
             invoiceTotalTextView = itemView.findViewById(R.id.invoice_total_textview);
-            invoiceEmailTextView = itemView.findViewById(R.id.invoice_email_textview);
             invoiceDateTextView = itemView.findViewById(R.id.invoice_date_textview);
+            invoiceLinesTextView = itemView.findViewById(R.id.invoice_number_lines_textview);
             deleteInvoiceButton = itemView.findViewById(R.id.delete_invoice_button);
-            invoicePagadoTextView = itemView.findViewById(R.id.invoice_pagado_textview);
+            invoicePagadoTextView = itemView.findViewById(R.id.invoice_paid_textview);
         }
     }
 
