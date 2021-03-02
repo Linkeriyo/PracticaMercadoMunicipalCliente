@@ -52,12 +52,18 @@ public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesAdapter.Invoic
         }
         holder.invoiceLinesTextView.setText("Artículos: " + invoice.lines.size());
         holder.invoiceTotalTextView.setText("Total: " + priceToString(invoice.total));
-        if (invoice.paid) {
-            holder.invoicePagadoTextView.setText("Pagado");
-            holder.invoicePagadoTextView.setTextColor(Color.GREEN);
+
+        if (invoice.cancelled) {
+            holder.invoicePagadoTextView.setText("Anulado");
+            holder.invoicePagadoTextView.setTextColor(Color.GRAY);
         } else {
-            holder.invoicePagadoTextView.setText("No pagado");
-            holder.invoicePagadoTextView.setTextColor(Color.RED);
+            if (invoice.paid) {
+                holder.invoicePagadoTextView.setText("Pagado");
+                holder.invoicePagadoTextView.setTextColor(Color.GREEN);
+            } else {
+                holder.invoicePagadoTextView.setText("No pagado");
+                holder.invoicePagadoTextView.setTextColor(Color.RED);
+            }
         }
 
         if (invoice.equals(AppData.activeInvoice)) {

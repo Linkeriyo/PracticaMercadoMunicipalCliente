@@ -84,11 +84,16 @@ public class InvoiceDetailsActivity extends AppCompatActivity {
             delayButton.setEnabled(false);
         }
 
-        if (invoice.paid) {
+        if (invoice.cancelled) {
             payButton.setVisibility(View.INVISIBLE);
             delayButton.setVisibility(View.INVISIBLE);
-        } else if (!invoice.equals(AppData.activeInvoice)) {
-            delayButton.setVisibility(View.INVISIBLE);
+        } else {
+            if (invoice.paid) {
+                payButton.setVisibility(View.INVISIBLE);
+                delayButton.setVisibility(View.INVISIBLE);
+            } else if (!invoice.equals(AppData.activeInvoice)) {
+                delayButton.setVisibility(View.INVISIBLE);
+            }
         }
 
         payButton.setOnClickListener(v -> {

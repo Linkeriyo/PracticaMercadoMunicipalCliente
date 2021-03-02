@@ -14,7 +14,7 @@ public class Invoice {
     public double total;
     public Date date;
     public String uid;
-    public boolean paid;
+    public boolean paid, cancelled;
 
     public Invoice(int number, List<InvoiceLine> lines, double total, Date date, String uid) {
         this.number = number;
@@ -23,6 +23,7 @@ public class Invoice {
         this.date = date;
         this.uid = uid;
         this.paid = false;
+        this.cancelled = false;
     }
 
     public Invoice() {
@@ -36,6 +37,7 @@ public class Invoice {
         this.date = new Date();
         this.uid = FirebaseAuth.getInstance().getUid();
         this.paid = false;
+        this.cancelled = false;
     }
 
     public Invoice(Invoice invoice) {
@@ -45,6 +47,7 @@ public class Invoice {
         this.date = invoice.date;
         this.uid = invoice.uid;
         this.paid = invoice.paid;
+        this.cancelled = invoice.cancelled;
     }
 
     public void addProduct(Product product) {
