@@ -45,6 +45,7 @@ public class StoresActivity extends AppCompatActivity {
         toolbar.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.sign_out_option) {
                 FirebaseAuth.getInstance().signOut();
+                AppData.invoiceList = null;
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
             } else if (item.getItemId() == R.id.stores_invoices_option) {
