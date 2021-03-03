@@ -84,8 +84,8 @@ public class Invoice {
         calculateTotal();
     }
 
-    public void calculateTotal() {
-        int total = 0;
+    public double calculateTotal() {
+        double total = 0;
         for (InvoiceLine line : lines) {
             Product product = AppData.getProductById(line.storeID, line.productID);
             if (product != null) {
@@ -93,5 +93,6 @@ public class Invoice {
             }
         }
         this.total = total;
+        return total;
     }
 }

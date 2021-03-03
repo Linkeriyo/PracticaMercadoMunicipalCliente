@@ -36,7 +36,6 @@
         android:theme="?attr/actionBarTheme"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/invoice_details_menu"
         app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
         app:subtitle="InvoiceNumber"
         app:title="Factura" />
@@ -50,7 +49,7 @@
         tools:layout_editor_absoluteX="16dp" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/invoice_details_total_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -66,7 +65,7 @@
         android:layout_marginTop="8dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/invoice_details_total_textview" />
 
     <Button
         android:id="@+id/pay_invoice_button"

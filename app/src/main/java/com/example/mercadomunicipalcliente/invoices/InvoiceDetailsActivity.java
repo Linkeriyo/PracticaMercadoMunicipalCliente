@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,11 +32,13 @@ public class InvoiceDetailsActivity extends AppCompatActivity {
     Toolbar toolbar;
     Invoice invoice;
     Button payButton, delayButton;
+    TextView totalTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invoice_details);
+        totalTextView = findViewById(R.id.invoice_details_total_textview);
         invoice = AppData.getInvoiceByNumber(getIntent().getIntExtra("invoiceNumber", 0));
         if (invoice == null) {
             invoice = AppData.activeInvoice;
@@ -62,6 +65,7 @@ public class InvoiceDetailsActivity extends AppCompatActivity {
         if (invoice.lines.isEmpty()) {
             findViewById(R.id.no_invoice_details_textview).setVisibility(View.VISIBLE);
         }
+        totalTextView.setText("Total: " + invoice.calculateTotal());
         recyclerView.getAdapter().registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onChanged() {
@@ -71,6 +75,7 @@ public class InvoiceDetailsActivity extends AppCompatActivity {
                 } else {
                     findViewById(R.id.no_invoice_details_textview).setVisibility(View.VISIBLE);
                 }
+                totalTextView.setText("Total: " + invoice.calculateTotal());
             }
         });
     }
