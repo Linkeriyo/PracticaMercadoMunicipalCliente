@@ -1,6 +1,8 @@
 package com.example.mercadomunicipalcliente.data;
 
 
+import android.net.Uri;
+
 import com.example.mercadomunicipalcliente.models.Invoice;
 import com.example.mercadomunicipalcliente.models.Product;
 import com.example.mercadomunicipalcliente.models.Store;
@@ -18,6 +20,17 @@ public class AppData {
     //Factura activa
     public static Invoice activeInvoice;
 
+    public static Product defaultProduct = new Product(
+            "",
+            "defaultProduct",
+            "Producto Eliminado",
+            0,
+            Uri.EMPTY,
+            Uri.EMPTY,
+            0,
+            false
+    );
+
     public static Store getStoreById(String storeID) {
         for (Store store : storeList) {
             if (store.ID.equals(storeID)) {
@@ -29,12 +42,14 @@ public class AppData {
 
     public static Product getProductById(String storeID, String productID) {
         Store store = getStoreById(storeID);
-        for (Product product : store.products) {
-            if (product.ID.equals(productID)) {
-                return product;
+        if (store != null) {
+            for (Product product : store.products) {
+                if (product.ID.equals(productID)) {
+                    return product;
+                }
             }
         }
-        return null;
+        return defaultProduct;
     }
 
     public static User getUserById(String uid) {
