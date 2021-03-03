@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthSettings;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DataSnapshot;
@@ -47,9 +48,29 @@ public class LoginActivity extends AppCompatActivity {
 
         //Si el usuario está logeado, procede a la siguiente actividad.
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            Intent nextActivityIntent = new Intent(getApplicationContext(), StoresActivity.class);
-            startActivity(nextActivityIntent);
-            finish();
+            DatabaseReference userReference = FirebaseDatabase.getInstance()
+                    .getReference("users")
+                    .child(FirebaseAuth.getInstance().getUid());
+            final User[] user = new User[1];
+            userReference.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        user[0] = task.getResult().getValue(User.class);
+                    }
+                }
+            });
+            if (user[0] == null) {
+                FirebaseAuth.getInstance().signOut();
+                Toast.makeText(this,
+                        "El usuario ha sido borrado de la base de datos, vuelva a registrarse",
+                        Toast.LENGTH_SHORT
+                ).show();
+            } else {
+                Intent nextActivityIntent = new Intent(getApplicationContext(), StoresActivity.class);
+                startActivity(nextActivityIntent);
+                finish();
+            }
         }
         setContentView(R.layout.activity_login);
 
