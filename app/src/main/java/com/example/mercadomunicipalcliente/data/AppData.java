@@ -94,4 +94,13 @@ public class AppData {
         }
         return true;
     }
+
+    public static void substractStock(List<InvoiceLine> invoiceLines) {
+        for (InvoiceLine line : invoiceLines) {
+            Product product = AppData.getProductById(line.storeID, line.productID);
+            if (product.stock > line.quantity) {
+                product.stock -= line.quantity;
+            }
+        }
+    }
 }

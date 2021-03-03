@@ -105,6 +105,8 @@ public class InvoiceDetailsActivity extends AppCompatActivity {
         payButton.setOnClickListener(v -> {
             if (AppData.getUserById(invoice.uid).balance > invoice.total) {
                 if (AppData.checkStock(invoice.lines)) {
+                    AppData.substractStock(invoice.lines);
+                    AppData.getUserById(invoice.uid).balance -= invoice.total;
                     invoice.paid = true;
                     if (invoice.equals(AppData.activeInvoice)) {
                         AppData.invoiceList.add(0, invoice);
