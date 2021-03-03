@@ -4,6 +4,7 @@ package com.example.mercadomunicipalcliente.data;
 import android.net.Uri;
 
 import com.example.mercadomunicipalcliente.models.Invoice;
+import com.example.mercadomunicipalcliente.models.InvoiceLine;
 import com.example.mercadomunicipalcliente.models.Product;
 import com.example.mercadomunicipalcliente.models.Store;
 import com.example.mercadomunicipalcliente.models.User;
@@ -82,5 +83,15 @@ public class AppData {
 
     public static void createActiveInvoice() {
         activeInvoice = new Invoice(AppData.getNextInvoiceNumber());
+    }
+
+    public static boolean checkStock(List<InvoiceLine> invoiceLines) {
+        for (InvoiceLine line : invoiceLines) {
+            Product product = AppData.getProductById(line.storeID, line.productID);
+            if (product.stock < line.quantity) {
+                return false;
+            }
+        }
+        return true;
     }
 }

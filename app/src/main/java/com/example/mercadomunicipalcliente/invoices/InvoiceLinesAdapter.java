@@ -42,9 +42,14 @@ public class InvoiceLinesAdapter extends RecyclerView.Adapter<InvoiceLinesAdapte
         InvoiceLine invoiceline = invoicelineList.get(position);
         Product product = AppData.getProductById(invoiceline.storeID, invoiceline.productID);
         holder.invoiceRowProductTextView.setText(invoiceline.productID);
-        holder.invoiceRowQuantityTextView.setText(invoiceline.quantity + "");
+        if (product.kgUnit) {
+            holder.invoiceRowQuantityTextView.setText(weightToString(invoiceline.quantity));
+        } else {
+            holder.invoiceRowQuantityTextView.setText(stockToString(invoiceline.quantity));
+        }
+
         holder.invoiceRowStoreTextView.setText(invoiceline.storeID);
-        holder.invoiceRowSubtotalTextView.setText(invoiceline.quantity * product.price + "");
+        holder.invoiceRowSubtotalTextView.setText(priceToString(invoiceline.quantity * product.price));
 
         if (invoice.paid) {
             holder.deleteInvoiceLineButton.setEnabled(false);
@@ -62,6 +67,9 @@ public class InvoiceLinesAdapter extends RecyclerView.Adapter<InvoiceLinesAdapte
         });
         holder.downInvoiceRowButton.setOnClickListener(v -> {
             invoiceline.quantity--;
+            if (invoiceline.quantity < 0) {
+                invoiceline.quantity = 0;
+            }
             notifyDataSetChanged();
         });
     }
@@ -99,5 +107,21 @@ public class InvoiceLinesAdapter extends RecyclerView.Adapter<InvoiceLinesAdapte
             priceString = priceString.substring(0, priceString.length() - 2);
         }
         return priceString + "€";
+    }
+
+    private static String stockToString(double stock) {
+        String stockString = String.valueOf(stock);
+        if (stockString.endsWith(".0")) {
+            stockString = stockString.substring(0, stockString.length() - 2);
+        }
+        return stockString + "uds";
+    }
+
+    private static String weightToString(double weight) {
+        String weightString = String.valueOf(weight);
+        if (weightString.endsWith(".0")) {
+            weightString = weightString.substring(0, weightString.length() - 2);
+        }
+        return weightString + "kg";
     }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -102,12 +103,26 @@ public class InvoiceDetailsActivity extends AppCompatActivity {
         }
 
         payButton.setOnClickListener(v -> {
-            invoice.paid = true;
-            if (invoice.equals(AppData.activeInvoice)) {
-                AppData.invoiceList.add(0, invoice);
-                AppData.createActiveInvoice();
+            if (AppData.getUserById(invoice.uid).balance > invoice.total) {
+                if (AppData.checkStock(invoice.lines)) {
+                    invoice.paid = true;
+                    if (invoice.equals(AppData.activeInvoice)) {
+                        AppData.invoiceList.add(0, invoice);
+                        AppData.createActiveInvoice();
+                    }
+                    saveChanges();
+                } else {
+                    Toast.makeText(this,
+                            "Alguno de los productos no tiene el stock necesario.",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                }
+            } else {
+                Toast.makeText(this,
+                        "No tienes suficiente dinero para pagar.",
+                        Toast.LENGTH_SHORT
+                ).show();
             }
-            saveChanges();
         });
 
         delayButton.setOnClickListener(v -> {
